@@ -28,7 +28,7 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
   const [lastResponse, setLastResponse] = useState<ChatResponse | null>(null);
 
   const { messages, loading, error, sendMessage, clearChat } = useChat();
-  const { state: avatarState, setThinking, setSpeaking, setIdle } = useAvatar();
+  const { state: avatarState, lastText: avatarLastText, setThinking, setSpeaking, setIdle } = useAvatar();
   const { listening, supported, transcript, startListening, stopListening, resetTranscript } = useVoiceInput();
 
   const handleSend = useCallback(
@@ -37,7 +37,7 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
       const response = await sendMessage(message);
       if (response) {
         setLastResponse(response);
-        setSpeaking();
+        setSpeaking(response.reply);
         setTimeout(setIdle, 3000);
       } else {
         setIdle();
@@ -98,7 +98,7 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
       <div className="flex items-center justify-between px-4 py-3 border-b border-ava-border shrink-0">
         <div className="flex items-center gap-3">
           <div className="relative w-8 h-8 rounded-full bg-violet-600/20 flex items-center justify-center overflow-hidden">
-            <Avatar3D state={avatarState} className="w-full h-full scale-150" />
+            <Avatar3D state={avatarState} lastText={avatarLastText} className="w-full h-full scale-150" />
           </div>
           <div>
             <p className="text-sm font-semibold text-zinc-100">Ava</p>
@@ -137,7 +137,7 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
 
       {/* Avatar area */}
       <div className="h-32 shrink-0 bg-gradient-to-b from-violet-950/30 to-transparent flex items-center justify-center overflow-hidden">
-        <Avatar3D state={avatarState} className="w-full h-full" />
+        <Avatar3D state={avatarState} lastText={avatarLastText} className="w-full h-full" />
       </div>
 
       {/* Tab buttons */}
