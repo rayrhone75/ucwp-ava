@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   outputFileTracingRoot: path.join(__dirname),
   serverExternalPackages: ['sharp'],
-  allowedDevOrigins: ['http://localhost:3001'],
+  allowedDevOrigins: ['http://localhost:3002'],
 };
 
 export default nextConfig;
