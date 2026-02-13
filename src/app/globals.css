@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ava-bg: #0a0a0f;
+  --ava-surface: #18181b;
+  --ava-border: #27272a;
+  --ava-accent: #8b5cf6;
+  --ava-accent-hover: #7c3aed;
+}
+
+body {
+  background: var(--ava-bg);
+  color: #fafafa;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbar for chat */
+.ava-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.ava-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ava-scrollbar::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 2px;
+}
+.ava-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* Pulse animation for avatar */
+@keyframes ava-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.ava-pulse {
+  animation: ava-pulse 2s ease-in-out infinite;
+}
+
+/* Breathing animation for avatar */
+@keyframes ava-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.ava-breathe {
+  animation: ava-breathe 3s ease-in-out infinite;
+}
+
+/* Thinking dots animation */
+@keyframes ava-dots {
+  0%, 20% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.ava-dot-1 { animation: ava-dots 1.4s infinite 0s; }
+.ava-dot-2 { animation: ava-dots 1.4s infinite 0.2s; }
+.ava-dot-3 { animation: ava-dots 1.4s infinite 0.4s; }

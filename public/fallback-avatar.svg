@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <defs>
+    <linearGradient id="bodyGrad" x1="100" y1="0" x2="100" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.4"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="100" cy="80" r="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Glow effect -->
+  <circle cx="100" cy="80" r="60" fill="url(#glowGrad)">
+    <animate attributeName="r" values="55;65;55" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.7;0.4" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Head -->
+  <ellipse cx="100" cy="75" rx="35" ry="40" fill="url(#bodyGrad)" filter="url(#glow)">
+    <animate attributeName="cy" values="75;73;75" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+  <!-- Eyes -->
+  <circle cx="86" cy="70" r="4" fill="#c4b5fd">
+    <animate attributeName="cy" values="70;68;70" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="4;4;0.5;4" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="114" cy="70" r="4" fill="#c4b5fd">
+    <animate attributeName="cy" values="70;68;70" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="4;4;0.5;4" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Mouth -->
+  <path d="M90 88 Q100 95 110 88" stroke="#c4b5fd" stroke-width="2" fill="none" stroke-linecap="round">
+    <animate attributeName="d" values="M90 88 Q100 95 110 88;M90 86 Q100 93 110 86;M90 88 Q100 95 110 88" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <!-- Neck -->
+  <rect x="92" y="112" width="16" height="18" rx="4" fill="url(#bodyGrad)" opacity="0.7">
+    <animate attributeName="y" values="112;110;112" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Body/Shoulders -->
+  <path d="M50 160 Q55 130 100 128 Q145 130 150 160 L155 220 Q100 225 45 220 Z" fill="url(#bodyGrad)" opacity="0.6">
+    <animate attributeName="d" values="M50 160 Q55 130 100 128 Q145 130 150 160 L155 220 Q100 225 45 220 Z;M50 158 Q55 128 100 126 Q145 128 150 158 L155 218 Q100 223 45 218 Z;M50 160 Q55 130 100 128 Q145 130 150 160 L155 220 Q100 225 45 220 Z" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <!-- Pulse rings -->
+  <circle cx="100" cy="160" r="30" stroke="#8b5cf6" stroke-width="1" fill="none" opacity="0">
+    <animate attributeName="r" values="30;80" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="100" cy="160" r="30" stroke="#8b5cf6" stroke-width="1" fill="none" opacity="0">
+    <animate attributeName="r" values="30;80" dur="2s" begin="1s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0" dur="2s" begin="1s" repeatCount="indefinite"/>
+  </circle>
+</svg>
