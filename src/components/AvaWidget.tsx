@@ -13,7 +13,7 @@ import PreflightChecker from './PreflightChecker';
 import { cn } from '@/lib/utils';
 import type { ChatResponse } from '@/types/chat';
 
-const Avatar3D = dynamic(() => import('./Avatar3D'), { ssr: false });
+const RealAvatar = dynamic(() => import('./RealAvatar'), { ssr: false });
 
 type Tab = 'chat' | 'preflight';
 
@@ -98,7 +98,7 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
       <div className="flex items-center justify-between px-4 py-3 border-b border-ava-border shrink-0">
         <div className="flex items-center gap-3">
           <div className="relative w-8 h-8 rounded-full bg-violet-600/20 flex items-center justify-center overflow-hidden">
-            <Avatar3D state={avatarState} lastText={avatarLastText} className="w-full h-full scale-150" />
+            <RealAvatar speaking={avatarState === 'speaking'} state={avatarState} lastText={avatarLastText} className="w-full h-full scale-150" />
           </div>
           <div>
             <p className="text-sm font-semibold text-zinc-100">Ava</p>
@@ -137,7 +137,7 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
 
       {/* Avatar area */}
       <div className="h-32 shrink-0 bg-gradient-to-b from-violet-950/30 to-transparent flex items-center justify-center overflow-hidden">
-        <Avatar3D state={avatarState} lastText={avatarLastText} className="w-full h-full" />
+        <RealAvatar speaking={avatarState === 'speaking'} state={avatarState} lastText={avatarLastText} className="w-full h-full" />
       </div>
 
       {/* Tab buttons */}
