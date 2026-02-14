@@ -38,7 +38,10 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
       if (response) {
         setLastResponse(response);
         setSpeaking(response.reply);
-        setTimeout(setIdle, 3000);
+        // Dynamic speaking duration based on response length
+        const wordCount = response.reply.split(/\s+/).length;
+        const speakDuration = Math.min(Math.max(wordCount * 50, 2000), 12000);
+        setTimeout(setIdle, speakDuration);
       } else {
         setIdle();
       }
@@ -136,8 +139,22 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
       </div>
 
       {/* Avatar area */}
-      <div className="h-32 shrink-0 bg-gradient-to-b from-violet-950/30 to-transparent flex items-center justify-center overflow-hidden">
+      <div className="relative h-32 shrink-0 bg-gradient-to-b from-violet-950/30 to-transparent flex items-center justify-center overflow-hidden">
         <RealAvatar speaking={avatarState === 'speaking'} state={avatarState} lastText={avatarLastText} className="w-full h-full" />
+        {avatarState === 'thinking' && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+            <span className="text-[10px] text-zinc-300">Thinking</span>
+            <span className="flex gap-0.5">
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className="w-1 h-1 bg-violet-400 rounded-full animate-bounce"
+                  style={{ animationDelay: `${i * 0.15}s`, animationDuration: '0.6s' }}
+                />
+              ))}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Tab buttons */}
