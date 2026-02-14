@@ -6,6 +6,7 @@ import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import type { AvatarState } from '@/hooks/useAvatar';
 import { cn } from '@/lib/utils';
+import { AvatarErrorBoundary } from './AvatarErrorBoundary';
 
 // ─── Ready Player Me avatar with ARKit morph targets ────────────
 // Free, no API key. Photorealistic half-body model with 52 ARKit
@@ -304,37 +305,45 @@ export default function RealAvatar({ speaking = false, lastText = '', state, cla
     return <FallbackAvatar speaking={isSpeaking} className={className} />;
   }
 
+  const fallbackNode = <FallbackAvatar speaking={isSpeaking} className={className} />;
+
   return (
     <div className={cn('w-full h-full', className)}>
-      <Canvas
-        camera={{ position: [0, 0.1, 1.8], fov: 22 }}
-        gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
-        onError={() => setLoadError(true)}
-      >
-        {/* Realistic 3-point studio lighting */}
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[3, 4, 5]} intensity={1.6} castShadow color="#fff5ee" />
-        <directionalLight position={[-2, 3, -1]} intensity={0.5} color="#e8e0ff" />
-        <pointLight position={[0, -1, 3]} intensity={0.3} color="#ffffff" />
-        <Environment preset="studio" />
+      <AvatarErrorBoundary fallback={fallbackNode}>
+        <Canvas
+          camera={{ position: [0, 0.1, 1.8], fov: 22 }}
+          gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
+          onError={() => setLoadError(true)}
+        >
+          {/* Realistic 3-point studio lighting */}
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[3, 4, 5]} intensity={1.6} castShadow color="#fff5ee" />
+          <directionalLight position={[-2, 3, -1]} intensity={0.5} color="#e8e0ff" />
+          <pointLight position={[0, -1, 3]} intensity={0.3} color="#ffffff" />
+          <Environment preset="studio" />
 
-        <Suspense fallback={null}>
-          <RPMModel speaking={isSpeaking} lastText={lastText} />
-        </Suspense>
+          <Suspense fallback={null}>
+            <RPMModel speaking={isSpeaking} lastText={lastText} />
+          </Suspense>
 
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          minPolarAngle={Math.PI / 2.2}
-          maxPolarAngle={Math.PI / 1.9}
-          minAzimuthAngle={-Math.PI / 12}
-          maxAzimuthAngle={Math.PI / 12}
-          target={[0, 0.1, 0]}
-        />
-      </Canvas>
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            minPolarAngle={Math.PI / 2.2}
+            maxPolarAngle={Math.PI / 1.9}
+            minAzimuthAngle={-Math.PI / 12}
+            maxAzimuthAngle={Math.PI / 12}
+            target={[0, 0.1, 0]}
+          />
+        </Canvas>
+      </AvatarErrorBoundary>
     </div>
   );
 }
 
-// Preload the model
-useGLTF.preload(RPM_AVATAR_URL);
+// Preload the model — wrapped in try/catch to prevent module-level crash
+try {
+  useGLTF.preload(RPM_AVATAR_URL);
+} catch {
+  // Silently ignore — avatar will fall back to static
+}
