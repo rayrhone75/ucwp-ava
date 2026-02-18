@@ -101,7 +101,7 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
       <div className="flex items-center justify-between px-4 py-3 border-b border-ava-border shrink-0">
         <div className="flex items-center gap-3">
           <div className="relative w-8 h-8 rounded-full bg-violet-600/20 flex items-center justify-center overflow-hidden">
-            <RealAvatar speaking={avatarState === 'speaking'} state={avatarState} lastText={avatarLastText} className="w-full h-full scale-150" />
+            <MessageCircle size={16} className="text-violet-400" />
           </div>
           <div>
             <p className="text-sm font-semibold text-zinc-100">Ava</p>
