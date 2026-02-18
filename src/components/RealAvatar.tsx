@@ -14,7 +14,7 @@ import { AvatarErrorBoundary } from './AvatarErrorBoundary';
 
 const RPM_AVATAR_URL =
   process.env.NEXT_PUBLIC_RPM_AVATAR_URL ||
-  'https://models.readyplayer.me/6460d95f656bbfbf5a8e5ad3.glb?morphTargets=ARKit,Oculus+Visemes&textureAtlas=512&quality=medium&useDracoMeshCompression=true';
+  'https://models.readyplayer.me/6460d95f656bbfbf5a8e5ad3.glb?morphTargets=ARKit,Oculus+Visemes&textureAtlas=512&quality=medium';
 
 // ─── Types ──────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
 export const OLLAMA_API_URL = process.env.OLLAMA_API_URL || 'http://127.0.0.1:11434';
 export const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'llama3.1:8b';
-export const OLLAMA_TIMEOUT_MS = Number(process.env.OLLAMA_TIMEOUT_MS) || 8000;
+export const OLLAMA_TIMEOUT_MS = Number(process.env.OLLAMA_TIMEOUT_MS) || 15000;
 
 export const RATE_LIMIT_RPM = Number(process.env.RATE_LIMIT_RPM) || 20;
 export const RATE_LIMIT_WINDOW_MS = 60_000;

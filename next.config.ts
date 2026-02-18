@@ -1,5 +1,9 @@
 import type { NextConfig } from 'next';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const nextConfig: NextConfig = {
   output: 'standalone',
@@ -11,10 +15,6 @@ const nextConfig: NextConfig = {
       {
         source: '/embed',
         headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'ALLOWALL',
-          },
           {
             key: 'Content-Security-Policy',
             value: 'frame-ancestors *',
