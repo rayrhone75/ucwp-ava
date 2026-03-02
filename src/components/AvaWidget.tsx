@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { MessageCircle, X, Minimize2, ImageIcon, MessagesSquare, RotateCcw } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useChat } from '@/hooks/useChat';
@@ -26,6 +26,10 @@ export default function AvaWidget({ embedded = false }: AvaWidgetProps) {
   const [minimized, setMinimized] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>('chat');
   const [lastResponse, setLastResponse] = useState<ChatResponse | null>(null);
+
+  useEffect(() => {
+    console.log('[Ava] Widget mounted, embedded:', embedded);
+  }, [embedded]);
 
   const { messages, loading, error, sendMessage, clearChat } = useChat();
   const { state: avatarState, lastText: avatarLastText, setThinking, setSpeaking, setIdle } = useAvatar();

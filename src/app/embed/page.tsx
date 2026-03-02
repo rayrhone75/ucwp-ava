@@ -1,9 +1,19 @@
 'use client';
 
+import { useEffect } from 'react';
 import AvaWidget from '@/components/AvaWidget';
 import { AvatarErrorBoundary } from '@/components/AvatarErrorBoundary';
 
 export default function EmbedPage() {
+  // Signal the parent AvaLauncher that the embed iframe is loaded and ready
+  useEffect(() => {
+    try {
+      window.parent.postMessage({ type: 'ava-ready' }, '*');
+    } catch {
+      // Ignore if no parent (standalone browsing)
+    }
+  }, []);
+
   return (
     <div className="w-screen h-screen bg-transparent">
       <AvatarErrorBoundary
